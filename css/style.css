@@ -108,6 +108,9 @@ body {
 .hero_bg_box .img-box img {
   min-width: 100%;
   min-height: 100%;
+  /* width: 1618px;
+  height: 1080px; */
+
 }
 
 .hero_bg_box::before {
