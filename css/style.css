@@ -46,9 +46,10 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   padding-bottom: 10px;
+  text-align: center;
 }
 
-.heading_container h2::before {
+/* .heading_container h2::before {
   content: "";
   width: 40px;
   height: 7px;
@@ -57,13 +58,13 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-}
+} */
 
 .heading_container.heading_center {
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
+          /* align-items: center; */
+  /* text-align: center; */
 }
 
 .heading_container.heading_center h2::before {
