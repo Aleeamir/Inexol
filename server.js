@@ -1,21 +1,39 @@
-const express = require('express');
+// const express = require('express');
 const bodyParser = require('body-parser');
+const emailjs = require('emailjs-com');
 
 const app = express();
-const port = 3000; // Use the port you prefer
+const PORT = 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/submit-form', (req, res) => {
-    const formData = req.body;
-    
-    // Log the form data to the console (in a real application, you might want to save it to a database)
-    console.log('Form Data:', formData);
+app.post('/send-email', (req, res) => {
+  const { name, email, phone, message } = req.body;
 
-    // Respond with a success message
-    res.json({ success: true, message: 'Form submitted successfully!' });
+  const templateParams = {
+    from_name: name,
+    to_email: 'yourgmail@gmail.com', // Replace with your Gmail address
+    subject: 'New Contact Form Submission',
+    message_html: `
+      <p>Name: ${name}</p>
+      <p>Email: ${email}</p>
+      <p>Phone: ${phone}</p>
+      <p>Message: ${message}</p>
+    `,
+  };
+
+  emailjs.send('gmail', 'template_id', templateParams, 'user_id')
+    .then(response => {
+      console.log('Email sent successfully:', response);
+      res.status(200).json({ success: true, message: 'Email sent successfully' });
+    })
+    .catch(error => {
+      console.error('Error sending email:', error);
+      res.status(500).json({ success: false, message: 'Error sending email' });
+    });
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
